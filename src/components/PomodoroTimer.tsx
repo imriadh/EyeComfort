@@ -22,7 +22,7 @@ const PomodoroTimer = () => {
     sessionsThisWeek: 0,
     totalMinutes: 0,
   });
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     loadStats();

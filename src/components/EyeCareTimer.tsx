@@ -8,7 +8,7 @@ const EyeCareTimer = () => {
   const [timeLeft, setTimeLeft] = useState(interval * 60); // seconds
   const [isRunning, setIsRunning] = useState(false);
   const [totalSessions, setTotalSessions] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Load saved data
