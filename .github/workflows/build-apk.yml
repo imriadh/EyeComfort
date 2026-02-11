@@ -1,0 +1,81 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --version ^2.0.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y android-sdk
+
+      - name: Setup Android
+        run: |
+          npm run tauri android init || echo "Android already initialized"
+
+      - name: Build APK
+        run: npm run tauri android build --apk
+        env:
+          ANDROID_HOME: /usr/lib/android-sdk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug.apk
+          path: |
+            src-tauri/gen/android/app/build/outputs/apk/universal/debug/*.apk
+            src-tauri/gen/android/app/build/outputs/apk/debug/*.apk
+
+      - name: Create Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "src-tauri/gen/android/app/build/outputs/apk/**/*.apk"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            Automated build of VisionBreak
+
+            ## Changes in this release
+            - Eye Care Timer with 20-20-20 rule
+            - Sleep Cycle Calculator
+            - Pomodoro Timer
+
+            Download the APK and install on your Android device (requires Android 7.0+)
+          allowUpdates: true
+          makeLatest: true

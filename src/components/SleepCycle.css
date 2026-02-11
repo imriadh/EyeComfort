@@ -1,0 +1,179 @@
+.sleep-container {
+  animation: fadeIn 0.5s ease;
+}
+
+.sleep-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.sleep-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* Bedtime Input */
+.bedtime-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.bedtime-input label {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.time-input {
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Wake Times */
+.wake-times {
+  margin-bottom: 2rem;
+}
+
+.wake-times h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.time-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.time-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-color: var(--accent-primary);
+}
+
+.time-card.selected {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  color: white;
+  border-color: transparent;
+}
+
+.cycle-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.wake-time {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.alarm-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #48bb78;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Rating Section */
+.rating-section {
+  margin-bottom: 2rem;
+}
+
+.rating-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.emoji-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.emoji-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.15);
+  border-color: var(--accent-primary);
+}
+
+.emoji-btn.selected {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-color: transparent;
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .time-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .emoji-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.75rem;
+  }
+}
